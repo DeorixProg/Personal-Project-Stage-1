@@ -1,4 +1,6 @@
+using EventManagement.Application.Validators.Events;
 using EventManagement.Infrastructure;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -13,6 +15,9 @@ namespace Event_Management.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateEventValidator>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
@@ -76,6 +81,7 @@ namespace Event_Management.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
